@@ -21,8 +21,10 @@ public class YourIT extends SearchTestBase {
 	@Test
 	public void testYourBug() {
 		try ( Session s = getSessionFactory().openSession() ) {
-			YourAnnotatedEntity yourEntity1 = new YourAnnotatedEntity( 1L, "Jane Smith" );
-			YourAnnotatedEntity yourEntity2 = new YourAnnotatedEntity( 2L, "John Doe" );
+			String myLocalTenantName = "test123";
+			TenantContext.setCurrentTenant(myLocalTenantName);
+			YourAnnotatedEntity yourEntity1 = new YourAnnotatedEntity( 1L, "Jane Smith", myLocalTenantName );
+			YourAnnotatedEntity yourEntity2 = new YourAnnotatedEntity( 2L, "John Doe", myLocalTenantName );
 
 			Transaction tx = s.beginTransaction();
 			s.persist( yourEntity1 );
